@@ -1,27 +1,77 @@
-# Todo
+# todo
+## To Do app specification 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+ 
 
-## Development server
+Using the API deployed at https://auto.loanvantage360.com/fps/todo/index.html develop an Angular SPA for a ToDo application. The terms “Task” and “ToDo” are used interchangeably. An important part of the API is the tokens which it requires. Tokens are given when the task is given and should be unique and kept secret. If you have some issues with your token contact your recruiter. Included in the end of the document is an example get query which you can run from postman with your token to create your first ToDo. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+ 
 
-## Code scaffolding
+Required functionalities are: 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ 
 
-## Build
+### 1. Create ToDo 
+``` 
+  - A ToDo create object has the following properties: 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  - Name – string up to 100 elements 
 
-## Running unit tests
+  - Description – string up to 500 elements 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  - DueIn – the remaining time to complete the task in hours. 
+```
 
-## Running end-to-end tests
+ 
+### 2. List all tasks 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+ 
 
-## Further help
+```
+  - When listing all tasks, we want a visible indication on the status of the task. The possible statuses are not strictly defined, but rather have properties. The definition of     the statuses and the visible indication is left in the hands of the author. The properties are as follows: 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  - A task that has more than 12h remaining and is not completed 
+
+  - A task that is not completed and has less than 12h to be completed 
+
+  - A task that is past its due date 
+
+  - A completed task
+```
+
+ 
+
+### 3. Complete task 
+
+```
+  - A task that is not overdue should have the ability to be completed. Since the server allows for tasks to always be completed, we need front end validation to plug this hole.     If you are having trouble finding the right endpoint, keep in mind that completing a task is an update request. 
+```
+
+ 
+
+### 4. Delete task 
+
+ 
+``` A task that is not yet completed and not past the due date should be able to be deleted.  ```
+
+ 
+
+```
+  Example request 
+
+  https://auto.loanvantage360.com/fps/todo/api/ToDos?token=b08fe7ce-9e5e-4d75-a963-2c3bf158775b
+
+  post https://auto.loanvantage360.com/fps/todo/api/ToDos?token={{token}} 
+
+  body: 
+
+  { 
+
+      "Name":"Example todo", 
+
+      "Description": "Created by calling the API", 
+
+      "DueIn":12 
+
+  }
+``` 
