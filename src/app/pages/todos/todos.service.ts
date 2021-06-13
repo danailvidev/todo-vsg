@@ -12,4 +12,16 @@ export class TodosService {
   fetchLatest() {
     return this.http.get(this.endpoint);
   }
+
+  fetchById(id: any) {
+    return this.http.get(`${this.endpoint}/${id}`);
+  }
+
+  create(body: any) {
+    return this.http.post(this.endpoint, body);
+  }
+
+  edit(body: any) {
+    return this.http.put(this.endpoint, body);
+  }
 }

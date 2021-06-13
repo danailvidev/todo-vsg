@@ -1,0 +1,21 @@
+<nz-card
+  *ngIf="todo"
+  [nzSize]="'small'"
+  [nzTitle]="todo.name"
+  [nzBordered]="false"
+  [nzExtra]="extraTemplate"
+  (click)="onDetailClick(todo);expand = !expand"
+  [@inOutAnimation]
+>
+<div *ngIf="expand" [@myAnimation]="expand">
+    {{ todo  | json}}
+</div>
+</nz-card>
+<ng-template #extraTemplate>
+  <label
+    nz-checkbox
+    [ngModel]="todo.isDone"
+    [ngModelOptions]="{ standalone: true }"
+    (ngModelChange)="onItemClick(todo, $event)"
+  ></label>
+</ng-template>

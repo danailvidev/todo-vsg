@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CreateTodoComponent } from './create-todo/create-todo.component';
+import { TodoDetailComponent } from './todo-item/todo-detail.component';
 import { TodosComponent } from './todos.component';
 
 const routes: Routes = [{ path: '', component: TodosComponent }];
@@ -10,5 +12,5 @@ const routes: Routes = [{ path: '', component: TodosComponent }];
   exports: [RouterModule]
 })
 export class TodosRoutingModule {
-  static components = [TodosComponent];
+  static components = [TodosComponent,CreateTodoComponent, TodoDetailComponent];
 }

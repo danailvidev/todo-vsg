@@ -59,8 +59,6 @@ Required functionalities are:
 ```
   Example request 
 
-  https://auto.loanvantage360.com/fps/todo/api/ToDos?token=b08fe7ce-9e5e-4d75-a963-2c3bf158775b
-
   post https://auto.loanvantage360.com/fps/todo/api/ToDos?token={{token}} 
 
   body: 

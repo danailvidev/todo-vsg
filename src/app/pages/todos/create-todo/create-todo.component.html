@@ -1,0 +1,42 @@
+<form
+  nz-form
+  [nzLayout]="'inline'"
+  [formGroup]="todoForm"
+  (ngSubmit)="submitForm()"
+>
+  <div class="form-wrapper">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
+      <nz-form-control nzErrorTip="Max 100 chars!" [nzSpan]="14">
+        <input formControlName="name" nz-input placeholder="Name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="description"
+        >Description:</nz-form-label
+      >
+      <nz-form-control nzErrorTip="Max 100 chars!" [nzSpan]="14">
+        <input
+          formControlName="description"
+          nz-input
+          placeholder="Description"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="dueIn">Due in (hrs)</nz-form-label>
+      <nz-form-control nzErrorTip="Max 100 chars!" [nzSpan]="14">
+        <nz-input-number
+          formControlName="dueIn"
+          [nzMin]="1"
+          [nzMax]="1000"
+          [nzStep]="1"
+        ></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" type="submit">Submit</button>
+  </div>
+</form>

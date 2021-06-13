@@ -1,0 +1,12 @@
+.form-wrapper {
+  flex-flow: column nowrap;
+  width: 100%;
+  > * {
+    margin-bottom: 1em;
+  }
+}
+
+nz-form-item {
+  display: flex;
+  justify-content: space-between;
+}

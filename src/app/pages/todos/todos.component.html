@@ -1,1 +1,18 @@
-{{ todos | json}}
+<nz-card style="width: 400px; margin-top: 16px">
+  <nz-collapse nzGhost>
+    <nz-collapse-panel [nzHeader]="'+ Add new todo'" [nzActive]="false">
+      <vsg-create-todo (onSubmit)="onAddNewTodo($event)"></vsg-create-todo>
+    </nz-collapse-panel>
+  </nz-collapse>
+  <br />
+
+  <nz-list nzGrid>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzXs]="24" *ngFor="let item of todos;let i = index; trackBy: trackBy">
+        <nz-list-item>
+          <vsg-todo-detail [todo]="item" (onDetail)="onDetailClick($event,i)"></vsg-todo-detail>
+        </nz-list-item>
+      </div>
+    </div>
+  </nz-list>
+</nz-card>
