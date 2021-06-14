@@ -4,18 +4,60 @@
   [nzTitle]="todo.name"
   [nzBordered]="false"
   [nzExtra]="extraTemplate"
-  (click)="onDetailClick(todo);expand = !expand"
   [@inOutAnimation]
 >
-<div *ngIf="expand" [@myAnimation]="expand">
-    {{ todo  | json}}
-</div>
+  <div *ngIf="todo.expand" [@myAnimation]="todo.expand" class="content">
+    <div>
+      Name:
+      <input nz-input [(ngModel)]="todo.name" id="name" style="width: 234px" />
+    </div>
+    <div>
+      Description:
+      <input
+        nz-input
+        [(ngModel)]="todo.description"
+        id="description"
+        style="width: 234px"
+      />
+    </div>
+    <div>
+      Due Date:
+      <nz-date-picker
+        nzShowTime
+        nzFormat="dd-MM-yyyy HH:mm:ss"
+        [(ngModel)]="todo.dueDate"
+        id="dueDate"
+      ></nz-date-picker>
+    </div>
+
+    <div>
+      Is Done:
+      <nz-switch [(ngModel)]="todo.isDone" id="isDone"></nz-switch>
+    </div>
+
+    <div class="footer">
+      <button nz-button nzType="primary" (click)="onUpdateButtonClick($event)">
+        <i nz-icon nzType="save" nzTheme="outline"></i> Update
+      </button>
+      <a
+        nz-button
+        nzType="text"
+        nzDanger
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure delete this todo?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="onDeleteButtonClick()"
+        ><i nz-icon nzType="delete" nzTheme="outline" title="Delete todo"></i
+      ></a>
+    </div>
+  </div>
 </nz-card>
 <ng-template #extraTemplate>
-  <label
-    nz-checkbox
-    [ngModel]="todo.isDone"
-    [ngModelOptions]="{ standalone: true }"
-    (ngModelChange)="onItemClick(todo, $event)"
-  ></label>
+  <i
+    style="cursor: pointer"
+    nz-icon
+    nzType="menu-{{ todo.expand ? 'unfold' : 'fold' }}"
+    nzTheme="outline"
+    (click)="onDetailClick($event, todo);"
+  ></i>
 </ng-template>

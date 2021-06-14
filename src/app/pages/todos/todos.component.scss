@@ -1,4 +1,9 @@
 :host {
-    display: flex;
-    justify-content: center;
+  padding: 2em 0;
+  display: flex;
+  justify-content: center;
+}
+
+nz-badge {
+  margin-right: 20px;
 }

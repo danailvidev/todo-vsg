@@ -1,18 +1,32 @@
-<nz-card style="width: 400px; margin-top: 16px">
-  <nz-collapse nzGhost>
-    <nz-collapse-panel [nzHeader]="'+ Add new todo'" [nzActive]="false">
-      <vsg-create-todo (onSubmit)="onAddNewTodo($event)"></vsg-create-todo>
-    </nz-collapse-panel>
-  </nz-collapse>
-  <br />
+<nz-badge [nzCount]="todos?.length || 0" [nzTitle]="'Todos count'">
+  <nz-card style="width: 400px;">
+    <nz-collapse nzGhost>
+      <nz-collapse-panel [nzHeader]="'+ Add new todo'" [nzActive]="false" [nzExtra]="extraTpl">
+        <vsg-create-todo (onSubmit)="onAddNewTodo($event)"></vsg-create-todo>
+      </nz-collapse-panel>
+      <ng-template #extraTpl>
+        <i nz-icon nzType="menu-fold" nzTheme="outline" title="Collapse All" (click)="onHideAll($event)"></i>
+      </ng-template>
+    </nz-collapse>
+    <br />
 
-  <nz-list nzGrid>
-    <div nz-row [nzGutter]="16">
-      <div nz-col [nzXs]="24" *ngFor="let item of todos;let i = index; trackBy: trackBy">
-        <nz-list-item>
-          <vsg-todo-detail [todo]="item" (onDetail)="onDetailClick($event,i)"></vsg-todo-detail>
-        </nz-list-item>
+    <nz-list nzGrid>
+      <div nz-row [nzGutter]="16">
+        <div
+          nz-col
+          [nzXs]="24"
+          *ngFor="let item of todos; let i = index; trackBy: trackBy"
+        >
+          <nz-list-item>
+            <vsg-todo-detail
+              [todo]="item"
+              (onDetail)="onDetailClick($event, i)"
+              (onUpdate)="onUpdateClick($event, i)"
+              (onDelete)="onDeleteClick($event, i)"
+            ></vsg-todo-detail>
+          </nz-list-item>
+        </div>
       </div>
-    </div>
-  </nz-list>
-</nz-card>
+    </nz-list>
+  </nz-card>
+</nz-badge>

@@ -9,19 +9,28 @@ import { Todo } from '../todo';
   animations: animations,
 })
 export class TodoDetailComponent implements OnInit {
-  expand: boolean = false;
   @Input() todo!: Todo;
   @Output() onDetail: EventEmitter<Todo> = new EventEmitter<Todo>();
+  @Output() onUpdate: EventEmitter<Todo> = new EventEmitter<Todo>();
+  @Output() onDelete: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  onItemClick(item: any, event: any) {
-    console.log(item, event);
+  onDetailClick(e: Event, todo: Todo) {
+    e.stopPropagation();
+    if (todo && !todo.expand) this.onDetail.emit(todo);
+    todo.expand = !todo.expand;
   }
 
-  onDetailClick(todo: Todo) {
-    if (todo && !this.expand) this.onDetail.emit(todo);
+  onUpdateButtonClick(e: Event) {
+    e.stopPropagation();
+
+    if (this.todo) this.onUpdate.emit(this.todo);
+  }
+
+  onDeleteButtonClick() {
+    if (this.todo) this.onDelete.emit(this.todo);
   }
 }

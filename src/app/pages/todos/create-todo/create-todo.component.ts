@@ -19,7 +19,7 @@ export class CreateTodoComponent implements OnInit {
   ngOnInit(): void {
     this.todoForm = this.fb.group({
       name: this.fb.control('', [Validators.maxLength(100)]),
-      description: this.fb.control(''),
+      description: this.fb.control('', [Validators.maxLength(500)]),
       isDone: this.fb.control(false),
       dueIn: this.fb.control(0),
     });

@@ -13,6 +13,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 import { TodosRoutingModule } from './todos.routing';
 import { TodosService } from './todos.service';
@@ -36,6 +41,11 @@ import { TodosService } from './todos.service';
     NzInputNumberModule,
     NzButtonModule,
     NzMessageModule,
+    NzToolTipModule,
+    NzDatePickerModule,
+    NzSwitchModule,
+    NzPopconfirmModule,
+    NzBadgeModule
   ],
   exports: [],
   providers: [TodosService],

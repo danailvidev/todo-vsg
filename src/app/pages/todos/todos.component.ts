@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { Todo } from './todo';
 import { TodosService } from './todos.service';
 
@@ -13,7 +15,7 @@ import { TodosService } from './todos.service';
 export class TodosComponent implements OnInit {
   public todos!: Todo[];
   public todo!: Todo;
-  subscription: Subscription = new Subscription();
+  public subscription: Subscription = new Subscription();
 
   constructor(private message: NzMessageService, private svc: TodosService) {}
 
@@ -27,15 +29,45 @@ export class TodosComponent implements OnInit {
 
   getLatest() {
     this.subscription.add(
-      this.svc.fetchLatest().subscribe((res: any) => (this.todos = res))
+      this.svc.fetchLatest().subscribe((res: any) => {
+        this.todos = res
+          .sort((a: any, b: any) => a.id - b.id)
+          .map((t: any) => ({ ...t, expand: false }));
+      })
     );
   }
 
   onDetailClick(todo: Todo, index: number) {
     this.subscription.add(
       this.svc.fetchById(todo.id).subscribe((res: any) => {
+        res.expand = true;
         this.todos[index] = res;
       })
+    );
+  }
+
+  onUpdateClick(todo: Todo, index: number) {
+    this.subscription.add(
+      this.svc.update(todo).subscribe((res: any) => {
+        this.createMessage('success', 'Successfully updated!');
+      })
+    );
+  }
+
+  onDeleteClick(todo: Todo, index: number) {
+    this.subscription.add(
+      this.svc
+        .delete(todo.id)
+        .pipe(
+          catchError((err) => {
+            this.createMessage('error', err.error);
+            return throwError(err);
+          })
+        )
+        .subscribe((res: any) => {
+          this.todos.splice(index, 1);
+          this.createMessage('success', 'Successfully deleted!');
+        })
     );
   }
 
@@ -53,6 +85,14 @@ export class TodosComponent implements OnInit {
         this.getLatest();
       })
     );
+  }
+
+  onHideAll(e: Event) {
+    e.stopPropagation();
+
+    for (const t of this.todos) {
+      t.expand = false;
+    }
   }
 
   trackBy(index: any, item: any) {
